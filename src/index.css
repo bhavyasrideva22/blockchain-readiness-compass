@@ -2,39 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Blockchain Assessment Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 248 100% 99%;
+    --foreground: 210 30% 8%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 210 30% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 210 30% 8%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 242 47% 58%;
     --primary-foreground: 210 40% 98%;
+    --primary-glow: 243 75% 70%;
 
     --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary-foreground: 210 30% 8%;
 
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
     --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent-foreground: 210 30% 8%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 242 47% 58%;
+
+    /* Blockchain-specific colors */
+    --blockchain-blue: 242 47% 58%;
+    --blockchain-purple: 270 47% 58%;
+    --blockchain-cyan: 190 88% 52%;
+    --blockchain-gold: 45 93% 58%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--blockchain-blue)), hsl(var(--blockchain-purple)));
+    --gradient-crypto: linear-gradient(45deg, hsl(var(--blockchain-cyan)), hsl(var(--blockchain-gold)));
+    --gradient-card: linear-gradient(135deg, hsl(var(--background)), hsl(var(--secondary)));
+
+    /* Assessment specific */
+    --progress-bg: 210 40% 92%;
+    --tab-active: hsl(var(--primary));
+    --tab-inactive: 210 16% 60%;
 
     --radius: 0.5rem;
 
@@ -56,17 +71,18 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 210 30% 8%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 215 28% 12%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
+    --popover: 215 28% 12%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 243 75% 70%;
+    --primary-foreground: 210 30% 8%;
+    --primary-glow: 243 85% 80%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -82,7 +98,21 @@ All colors MUST be HSL.
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --ring: 243 75% 70%;
+
+    /* Dark mode blockchain colors */
+    --blockchain-blue: 243 75% 70%;
+    --blockchain-purple: 270 75% 70%;
+    --blockchain-cyan: 190 88% 62%;
+    --blockchain-gold: 45 93% 68%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(var(--blockchain-blue)), hsl(var(--blockchain-purple)));
+    --gradient-crypto: linear-gradient(45deg, hsl(var(--blockchain-cyan)), hsl(var(--blockchain-gold)));
+    --gradient-card: linear-gradient(135deg, hsl(var(--card)), hsl(var(--secondary)));
+
+    --progress-bg: 217.2 32.6% 20%;
+    --tab-active: hsl(var(--primary));
+    --tab-inactive: 215 20% 45%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -100,6 +130,43 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer components {
+  .assessment-tab {
+    @apply px-4 py-2 rounded-md text-sm font-medium transition-all duration-200;
+  }
+  
+  .assessment-tab.active {
+    @apply text-white;
+    background: var(--tab-active);
+  }
+  
+  .assessment-tab.inactive {
+    @apply text-muted-foreground hover:text-foreground;
+    color: var(--tab-inactive);
+  }
+  
+  .progress-bar {
+    @apply h-2 rounded-full overflow-hidden;
+    background: var(--progress-bg);
+  }
+  
+  .progress-fill {
+    @apply h-full transition-all duration-500 ease-out bg-gradient-to-r from-blockchain-blue to-blockchain-purple;
+  }
+  
+  .feature-card {
+    @apply p-6 rounded-lg border bg-card text-card-foreground hover:shadow-md transition-shadow;
+  }
+  
+  .gradient-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-blockchain-blue to-blockchain-purple;
+  }
+  
+  .crypto-gradient {
+    @apply bg-gradient-to-r from-blockchain-cyan to-blockchain-gold;
   }
 }
